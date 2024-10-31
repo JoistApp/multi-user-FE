@@ -36,7 +36,8 @@ export async function postData(userData, payload, target) {
 
   return response.data;
 }
-export async function signUp(userData) {
+
+export async function registerUser(userData) {
   const response = await axios.post(
     `${base_url}/api/v1/sign_up`,
     userData, 
@@ -48,11 +49,16 @@ export async function signUp(userData) {
     { withCredentials: true }
   );
 
+  return response.data;
+}
+
+export async function signUp(userData) {
+  const user = await registerUser(userData);
   const tabs = await fetchData(response.dat, 'tabs');
   return {
     data: {
-      user: response.data,
-      tabs: tabs,
+      user,
+      tabs,
     }
   };
 }

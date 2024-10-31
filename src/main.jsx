@@ -9,6 +9,7 @@ import Signup from './routes/Signup';
 import NotFound from './routes/NotFound';
 import Login from './routes/Login';
 import Roles from './routes/Roles';
+import Users from './routes/Users';
 import { store } from './store'
 import { Provider } from 'react-redux'
 
@@ -19,6 +20,7 @@ const router = createBrowserRouter([
     element: <Home />,
     children: [
       { path: 'roles', element: <Roles /> },
+      { path: 'users', element: <Users /> },
     ],
     errorElement: <NotFound />,
   },

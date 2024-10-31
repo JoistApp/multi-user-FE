@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import useModal from "../hooks/useModal";
 import { addRole } from "../features/slices/rolesSlice";
 import { selectRolesList } from "../features/selectors/rolesSelector";
 import { fetchRoles } from "../features/slices/userSlice";
+import sharedStyles from '../styles/shared';
 import {
   Box,
   Button,
@@ -25,13 +27,11 @@ const Roles = () => {
     settings_enabled: false,
   }
   const dispatch = useDispatch();
-  const [isOpen, setIsOpen] = useState(false);
   const [roleName, setRoleName] = useState('');
   const [roleDescription, setRoleDescription] = useState('');
+  const { isOpen, handleClose, handleOpen } = useModal();
   const [checkboxes, setCheckboxes] = useState(initialStateCheckbox);
   const roles = useSelector(selectRolesList);
-  const handleOpen = () => setIsOpen(true);
-  const handleClose = () => setIsOpen(false);
 
   const handleCheckboxChange = e => {
     const { name, checked } = e.target;
@@ -59,19 +59,6 @@ const Roles = () => {
 
   }
 
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    pt: 2,
-    px: 4,
-    pb: 3,
-  };  
   const checkboxContainerStyles = {
     display: 'flex',
     '> *': {
@@ -114,9 +101,7 @@ const Roles = () => {
     dispatch(fetchRoles());
   }, []);
   return (
-    <Box sx={{
-      marginLeft: '150px',
-    }}>
+    <Box>
       <h1>Roles</h1>
       <Button variant="contained" color="primary" onClick={handleOpen}>Add Role</Button>
       <Modal
@@ -126,7 +111,7 @@ const Roles = () => {
         aria-describedby="child-modal-description"
       >
         <Box sx={{
-          ...style,
+          ...sharedStyles.modalStyles,
           width: 450,
         }}>
           <form onSubmit={handleSubmit}>

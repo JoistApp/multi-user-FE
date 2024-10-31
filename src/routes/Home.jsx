@@ -1,6 +1,7 @@
 import useAuthenticate from "../hooks/useAuthenticate";
 import { Outlet, Link } from "react-router-dom";
 import Drawer from '@mui/material/Drawer';
+import { Box } from "@mui/material";
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
@@ -46,7 +47,9 @@ export default function Home() {
           ))}
         </List>
       </Drawer>
-      <Outlet />
+      <Box sx={{ marginLeft: '150px' }}>
+        <Outlet />
+      </Box>
     </div>
   );
 };
