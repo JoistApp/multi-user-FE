@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { selectUserData } from '../features/selectors/userSelector';
 import { fetchData, postData } from "../modules/apiRequests";
+import DocumentCard from '../components/DocumentCard';
 import useModal from '../hooks/useModal';
 import {
   Button,
@@ -53,15 +54,11 @@ export default function Estimates() {
     <div>
       <h1>Estimates</h1>
       {hasEditAccess && <Button variant="contained" onClick={handleOpen} color="primary">Create Estimate</Button>}
-      <ul>
+      <Box sx={sharedStyles.documentCardContainerStyles}>
         {estimates.map(estimate => (
-          <li>
-            <div>{estimate.name}</div>
-            <div>{estimate.phone}</div>
-            <div>{estimate.email}</div>
-          </li>
+          <DocumentCard {...estimate} key={estimate.id} />
         ))}
-      </ul>
+      </Box>
 
       <Modal
         open={isOpen}

@@ -14,6 +14,7 @@ import Invoices from './routes/Invoices';
 import Estimates from './routes/Estimates';
 import { store } from './store'
 import { Provider } from 'react-redux'
+import './index.css'
 
 
 const router = createBrowserRouter([

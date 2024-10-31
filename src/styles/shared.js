@@ -19,4 +19,10 @@ export default {
     px: 4,
     pb: 3,
   },
+  documentCardContainerStyles: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: 2,
+    marginTop: 2,
+  },
 }

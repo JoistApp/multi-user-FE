@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { selectUserData } from '../features/selectors/userSelector';
 import { fetchData, postData } from "../modules/apiRequests";
+import DocumentCard from '../components/DocumentCard';
 import useModal from '../hooks/useModal';
 import {
   Button,
@@ -53,16 +54,11 @@ export default function Invoices() {
     <div>
       <h1>Invoices</h1>
       {hasEditAccess && <Button variant="contained" onClick={handleOpen} color="primary">Create Invoice</Button>}
-      <ul>
+      <Box sx={sharedStyles.documentCardContainerStyles}>
         {invoices.map(invoice => (
-          <li>
-            <div>{invoice.name}</div>
-            <div>{invoice.phone}</div>
-            <div>{invoice.email}</div>
-          </li>
+          <DocumentCard {...invoice} key={invoice.id} />
         ))}
-      </ul>
-
+      </Box>
       <Modal
         open={isOpen}
         onClose={handleClose}
