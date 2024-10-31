@@ -2,20 +2,12 @@ import axios from 'axios';
 
 axios.defaults.withCredentials = true; 
 
-export async function signUp({
-  email, 
-  password,
-  confirmPassword,
-}) {
+export async function signUp(userData) {
+  console.log(userData);
   const response = await axios.post(
-    'http://localhost:3000/api/sign_up',
+    'http://localhost:3000/api/v1/sign_up',
+    userData, 
     {
-      user: {
-        email,
-        password,
-        password_confirmation: confirmPassword,
-      }
-    }, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -25,24 +17,31 @@ export async function signUp({
   return response;
 }
 
-export async function signIn({
-  email, 
-  password,
-}) {
+export async function login(userData) {
   const response = await axios.post(
-    'http://localhost:3000/api/sign_in',
-    {
-      user: {
-        email,
-        password,
-      }
-    }, {
+    'http://localhost:3000/api/v1/sign_in', userData, {
       headers: {
         'Content-Type': 'application/json',
+        'Accept': 'application/json',
       },
     }, 
     { withCredentials: true }
-  )
+  );
 
+  const { id, company_id, auth_token } = response.data;
+
+  const roles = await axios.get(
+    `http://localhost:3000/api/v1/${id}/companies/${company_id}/roles`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'X-Api-Authorization': auth_token,
+      },
+    }, 
+    { withCredentials: true }
+  );
+
+  console.log(roles);
   return response;
 }
+

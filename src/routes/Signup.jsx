@@ -1,7 +1,7 @@
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import { signUp, signIn } from '../modules/apiRequests';
+import { signUp } from '../modules/apiRequests';
 import sharedStyles from '../styles/shared';
 
 export default function Signup() {
@@ -9,9 +9,11 @@ export default function Signup() {
     e.preventDefault();
     const { email, password, confirmPassword } = e.target;
     const response = await signUp({
-      email: email.value,
-      password: password.value,
-      confirmPassword: confirmPassword.value,
+      user: {
+        email: email.value,
+        password: password.value,
+        password_confirmation: confirmPassword.value,
+      }
     });
 
     console.log(response);

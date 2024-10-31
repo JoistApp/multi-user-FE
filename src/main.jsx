@@ -5,7 +5,7 @@ import {
   RouterProvider,
 } from 'react-router-dom'
 import Home from './routes/Home';
-import Signup from './routes/SignUp';
+import Signup from './routes/Signup';
 import NotFound from './routes/NotFound';
 import Login from './routes/Login';
 import { store } from './store'
