@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectRolesData } from "../features/selectors/rolesSelector";
+import { addRole } from "../features/slices/rolesSlice";
+import { selectRolesList } from "../features/selectors/rolesSelector";
 import { fetchRoles } from "../features/slices/userSlice";
 import {
   Box,
@@ -13,21 +14,22 @@ import {
 } from "@mui/material";
 
 const Roles = () => {
-  const dispatch = useDispatch();
-  const [isOpen, setIsOpen] = useState(false);
-  const [roleName, setRoleName] = useState('');
-  const [checkboxes, setCheckboxes] = useState({
+  const initialStateCheckbox = {
     roles_visible: false,
     roles_enabled: false,
     users_visble: false,
     users_enabled: false,
-    estimates_visible: false,
-    invoices_visible: false,
+    estimates_enabled: false,
+    invoices_enabled: false,
     settings_visible: false,
     settings_enabled: false,
-  });
-  const { roles: { roles } } = useSelector(selectRolesData);
-
+  }
+  const dispatch = useDispatch();
+  const [isOpen, setIsOpen] = useState(false);
+  const [roleName, setRoleName] = useState('');
+  const [roleDescription, setRoleDescription] = useState('');
+  const [checkboxes, setCheckboxes] = useState(initialStateCheckbox);
+  const roles = useSelector(selectRolesList);
   const handleOpen = () => setIsOpen(true);
   const handleClose = () => setIsOpen(false);
 
@@ -44,10 +46,17 @@ const Roles = () => {
     const data = {
       role: {
         name: roleName,
+        description: roleDescription,
         ...checkboxes
       }
     }
-    console.log(data);
+    dispatch(addRole(data));
+
+    setIsOpen(false);
+    setRoleName('');
+    setRoleDescription('');
+    setCheckboxes(initialStateCheckbox);
+
   }
 
   const style = {
@@ -88,8 +97,8 @@ const Roles = () => {
     {
       label: 'Documents',
       fields: [
-        {name: 'estimates_visible', label: 'Estimates'},
-        {name: 'invoices_visible', label: 'Invoices'},
+        {name: 'estimates_enabled', label: 'Estimates'},
+        {name: 'invoices_enabled', label: 'Invoices'},
       ],
     },
     {
@@ -123,12 +132,21 @@ const Roles = () => {
           <form onSubmit={handleSubmit}>
             <h2 id="child-modal-title">Create a new role</h2>
             <TextField
+              sx={{ marginBottom: 2 }}
               id="roleName"
               fullWidth
               label="Role Name"
               variant="standard"
               value={roleName}
               onChange={(e) => setRoleName(e.target.value)}
+            />
+            <TextField
+              id="description"
+              fullWidth
+              label="Role Description"
+              variant="standard"
+              value={roleDescription}
+              onChange={(e) => setRoleDescription(e.target.value)}
             />
             <h3>Privilages</h3>
             {fields.map(({label, fields}) => (

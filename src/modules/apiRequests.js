@@ -19,6 +19,23 @@ export async function fetchData(userData, target) {
   return response.data;
 }
 
+export async function postData(userData, payload, target) {
+  const { id, company_id, auth_token } = userData;
+  const response = await axios.post(
+    `${base_url}/api/v1/${id}/companies/${company_id}/${target}`, {
+      role: payload.role,
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'X-Api-Authorization': `Joist-Token ${auth_token}`,
+      },
+    }, 
+    { withCredentials: true }
+  );
+
+  return response.data;
+}
 export async function signUp(userData) {
   const response = await axios.post(
     `${base_url}/api/v1/sign_up`,

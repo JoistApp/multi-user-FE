@@ -1,1 +1,2 @@
-export const selectRolesData = (state) => state.roles;
+export const selectRolesData = (state) => state.roles.rolesData;
+export const selectRolesList = (state) => state.roles.rolesData?.roles;
