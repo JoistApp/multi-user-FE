@@ -3,11 +3,10 @@ import axios from 'axios';
 axios.defaults.withCredentials = true; 
 const base_url = 'http://localhost:3000';
 
-export async function fetchTabs({
-  id, company_id, auth_token
-}) {
+export async function fetchData(userData, target) {
+  const { id, company_id, auth_token } = userData;
   const response = await axios.get(
-    `${base_url}/api/v1/${id}/companies/${company_id}/tabs`, {
+    `${base_url}/api/v1/${id}/companies/${company_id}/${target}`, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -16,7 +15,8 @@ export async function fetchTabs({
     }, 
     { withCredentials: true }
   );
-  return response;
+
+  return response.data;
 }
 
 export async function signUp(userData) {
@@ -31,11 +31,11 @@ export async function signUp(userData) {
     { withCredentials: true }
   );
 
-  const tabs = await fetchTabs(response.data);
+  const tabs = await fetchData(response.dat, 'tabs');
   return {
     data: {
       user: response.data,
-      tabs: tabs.data,
+      tabs: tabs,
     }
   };
 }
@@ -51,12 +51,14 @@ export async function login(userData) {
     { withCredentials: true }
   );
 
-  const tabs = await fetchTabs(response.data);
-
+  const { tabs } = await fetchData(response.data, 'tabs');
+  
   return {
     data: {
       user: response.data,
-      tabs: tabs.data.tabs,
+      tabs,
     }
   };
 }
+
+

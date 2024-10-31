@@ -1,0 +1,1 @@
+export const selectRolesData = (state) => state.roles;

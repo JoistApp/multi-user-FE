@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { signUp, login } from '../../modules/apiRequests';
+import { signUp, login, fetchData } from '../../modules/apiRequests';
 
 const initialState = {
   user: null,
@@ -31,6 +31,20 @@ export const loginUser = createAsyncThunk(
   }
 )
 
+export const fetchRoles = createAsyncThunk(
+  'user/roles/get',
+  async (_, { rejectWithValue, getState }) => {
+    try {
+      const state = getState();
+      const userData = state.user.user;
+      const response = await fetchData(userData, 'roles');
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+)
+
 export const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -39,14 +53,15 @@ export const userSlice = createSlice({
       .addCase(signUpUser.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.tabs = action.payload.tabs;
+        state.errors = [];
       })
       .addCase(signUpUser.rejected, (state, action) => {
         state.errors.push(action.payload);
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.user = action.payload.user;
         state.tabs = action.payload.tabs;
+        state.errors = [];
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.errors.push(action.payload);
