@@ -8,16 +8,41 @@ export async function signUp({
   confirmPassword,
 }) {
   const response = await axios.post(
-    'http://localhost:3000/api/v1/signup',
+    'http://localhost:3000/api/sign_up',
     {
-      email,
-      password,
-      password_confirmation: confirmPassword,
+      user: {
+        email,
+        password,
+        password_confirmation: confirmPassword,
+      }
     }, {
       headers: {
         'Content-Type': 'application/json',
-      }
-    }
+      },
+    }, 
+    { withCredentials: true }
   );
-  return response.data;
+  return response;
+}
+
+export async function signIn({
+  email, 
+  password,
+}) {
+  const response = await axios.post(
+    'http://localhost:3000/api/sign_in',
+    {
+      user: {
+        email,
+        password,
+      }
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }, 
+    { withCredentials: true }
+  )
+
+  return response;
 }

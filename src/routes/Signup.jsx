@@ -1,7 +1,7 @@
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import { signUp } from '../modules/apiRequests';
+import { signUp, signIn } from '../modules/apiRequests';
 import sharedStyles from '../styles/shared';
 
 export default function Signup() {
@@ -16,6 +16,7 @@ export default function Signup() {
 
     console.log(response);
   }
+
   return (
   <form onSubmit={handleSubmit}>
     <Box
