@@ -56,7 +56,7 @@ export async function login(userData) {
   return {
     data: {
       user: response.data,
-      tabs: tabs.data,
+      tabs: tabs.data.tabs,
     }
   };
 }

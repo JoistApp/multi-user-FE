@@ -3,7 +3,7 @@ import useAuthenticate from '../hooks/useAuthenticate';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import { signUpUser } from '../features/user/userSlice';
+import { signUpUser } from '../features/slices/userSlice';
 import sharedStyles from '../styles/shared';
 
 export default function Signup() {
