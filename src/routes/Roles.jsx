@@ -173,21 +173,35 @@ const Roles = () => {
       </Modal>
       <TableContainer component={Paper} sx={{
         minWidth: 375,
-        maxWidth: 750,
+        maxWidth: 1000,
         margin: '0 auto',
       }}>
         <Table aria-label="customized table">
           <TableHead>
             <TableRow>
               <StyledTableCell align="center">Name</StyledTableCell>
-              {/* <StyledTableCell align="center">Role</StyledTableCell> */}
+              <StyledTableCell align="center">View Roles</StyledTableCell>
+              <StyledTableCell align="center">Write Roles</StyledTableCell>
+              <StyledTableCell align="center">View Users</StyledTableCell>
+              <StyledTableCell align="center">Write Users</StyledTableCell>
+              <StyledTableCell align="center">Write Estimates</StyledTableCell>
+              <StyledTableCell align="center">Write Invoices</StyledTableCell>
+              <StyledTableCell align="center">View Settings</StyledTableCell>
+              <StyledTableCell align="center">Write Settings</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {roles?.map((role) => (
               <StyledTableRow key={user.id}>
                 <StyledTableCell align="center">{role.name}</StyledTableCell>
-                {/* <StyledTableCell align="center">{user.role}</StyledTableCell> */}
+                <StyledTableCell align="center"><Checkbox disabled checked={role.roles_visible} /></StyledTableCell>
+                <StyledTableCell align="center"><Checkbox disabled checked={role.roles_enabled} /></StyledTableCell>
+                <StyledTableCell align="center"><Checkbox disabled checked={role.users_visible} /></StyledTableCell>
+                <StyledTableCell align="center"><Checkbox disabled checked={role.users_enabled} /></StyledTableCell>
+                <StyledTableCell align="center"><Checkbox disabled checked={role.estimates_enabled} /></StyledTableCell>
+                <StyledTableCell align="center"><Checkbox disabled checked={role.invoices_enabled} /></StyledTableCell>
+                <StyledTableCell align="center"><Checkbox disabled checked={role.settings_visible} /></StyledTableCell>
+                <StyledTableCell align="center"><Checkbox disabled checked={role.settings_enabled} /></StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>
