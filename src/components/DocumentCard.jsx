@@ -10,6 +10,7 @@ const DocumentCard = ({
   name, 
   phone,
   email,
+  isEditable = false,
 }) => {
   return (
   <>
@@ -30,8 +31,11 @@ const DocumentCard = ({
           {phone}
         </Typography>
       </CardContent>
-      <CardActions>
-        <Button size="small">Learn More</Button>
+      <CardActions sx={{
+        display: 'flex',
+        justifyContent: 'flex-end',
+      }}>
+        {isEditable && <Button size="small">Edit</Button>}
       </CardActions>
     </Card>
   </>

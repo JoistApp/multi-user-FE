@@ -56,7 +56,7 @@ export default function Estimates() {
       {hasEditAccess && <Button variant="contained" onClick={handleOpen} color="primary">Create Estimate</Button>}
       <Box sx={sharedStyles.documentCardContainerStyles}>
         {estimates.map(estimate => (
-          <DocumentCard {...estimate} key={estimate.id} />
+          <DocumentCard {...estimate} key={estimate.id} isEditable={hasEditAccess}/>
         ))}
       </Box>
 

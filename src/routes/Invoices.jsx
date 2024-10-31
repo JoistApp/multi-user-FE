@@ -56,7 +56,7 @@ export default function Invoices() {
       {hasEditAccess && <Button variant="contained" onClick={handleOpen} color="primary">Create Invoice</Button>}
       <Box sx={sharedStyles.documentCardContainerStyles}>
         {invoices.map(invoice => (
-          <DocumentCard {...invoice} key={invoice.id} />
+          <DocumentCard {...invoice} key={invoice.id} isEditable={hasEditAccess} />
         ))}
       </Box>
       <Modal
