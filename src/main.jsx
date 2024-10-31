@@ -10,6 +10,8 @@ import NotFound from './routes/NotFound';
 import Login from './routes/Login';
 import Roles from './routes/Roles';
 import Users from './routes/Users';
+import Invoices from './routes/Invoices';
+import Estimates from './routes/Estimates';
 import { store } from './store'
 import { Provider } from 'react-redux'
 
@@ -21,6 +23,8 @@ const router = createBrowserRouter([
     children: [
       { path: 'roles', element: <Roles /> },
       { path: 'users', element: <Users /> },
+      { path: 'invoices', element: <Invoices /> },
+      { path: 'estimates', element: <Estimates /> },
     ],
     errorElement: <NotFound />,
   },

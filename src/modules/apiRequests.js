@@ -22,9 +22,7 @@ export async function fetchData(userData, target) {
 export async function postData(userData, payload, target) {
   const { id, company_id, auth_token } = userData;
   const response = await axios.post(
-    `${base_url}/api/v1/${id}/companies/${company_id}/${target}`, {
-      role: payload.role,
-    }, {
+    `${base_url}/api/v1/${id}/companies/${company_id}/${target}`, payload, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -83,5 +81,6 @@ export async function login(userData) {
     }
   };
 }
+
 
 
