@@ -31,11 +31,11 @@ export async function login(userData) {
   const { id, company_id, auth_token } = response.data;
 
   const roles = await axios.get(
-    `http://localhost:3000/api/v1/${id}/companies/${company_id}/roles`, {
+    `http://localhost:3000/api/v1/${id}/companies/${company_id}/roles`, {}, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'X-Api-Authorization': auth_token,
+        'X-Api-Authorization': `Joist-Token ${auth_token}`,
       },
     }, 
     { withCredentials: true }
