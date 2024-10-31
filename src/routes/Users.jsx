@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from "react-redux";
+import useProtectAccess from '../hooks/useProtectAccess';
 import { fetchData, registerUser } from "../modules/apiRequests"
 import useModal from "../hooks/useModal";
 import sharedStyles from '../styles/shared';
@@ -16,6 +17,12 @@ import {
 import { selectUserRequestData } from "../features/selectors/userSelector";
 
 const Users = () => {
+  const { hasEditAccess, hasViewAccess } = useProtectAccess('Users');
+
+  if (!hasViewAccess) {
+    return <></>;
+  }
+
   const userRequestData = useSelector(selectUserRequestData);
   const [users, setUsers] = useState([]);
   const [roles, setRoles] = useState([]);
@@ -68,7 +75,7 @@ const Users = () => {
   return (
     <div>
       <h1>Employees</h1>
-      <Button variant="contained" color="primary" onClick={handleOpen}>Add Employee</Button>
+      { hasEditAccess && <Button variant="contained" color="primary" onClick={handleOpen}>Add Employee</Button>}
       {users.map(user => (
         <ul key={user.id}>
           <li>{user.email} - {user.role}</li>
