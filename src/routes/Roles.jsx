@@ -6,6 +6,8 @@ import { selectRolesList } from "../features/selectors/rolesSelector";
 import useProtectAccess from "../hooks/useProtectAccess";
 import { fetchRoles } from "../features/slices/userSlice";
 import sharedStyles from '../styles/shared';
+import StyledTableCell from "../components/StyledTableCell";
+import StyledTableRow from "../components/StyledTableRow";
 import {
   Box,
   Button,
@@ -14,6 +16,12 @@ import {
   FormGroup,
   FormControlLabel,
   Checkbox,
+  Table,
+  TableBody,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
 } from "@mui/material";
 
 const Roles = () => {
@@ -107,6 +115,8 @@ const Roles = () => {
   useEffect(() => {
     dispatch(fetchRoles());
   }, []);
+
+  console.log(roles);
   return (
     <Box>
       <h1>Roles</h1>
@@ -161,11 +171,28 @@ const Roles = () => {
           </form> 
         </Box>
       </Modal>
-      <ul>
-        {roles?.map(({name, id}) => (
-          <li key={id}>{name}</li>
-        ))}
-      </ul>
+      <TableContainer component={Paper} sx={{
+        minWidth: 375,
+        maxWidth: 750,
+        margin: '0 auto',
+      }}>
+        <Table aria-label="customized table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell align="center">Name</StyledTableCell>
+              {/* <StyledTableCell align="center">Role</StyledTableCell> */}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {roles?.map((role) => (
+              <StyledTableRow key={user.id}>
+                <StyledTableCell align="center">{role.name}</StyledTableCell>
+                {/* <StyledTableCell align="center">{user.role}</StyledTableCell> */}
+              </StyledTableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </Box>
   );
 }
