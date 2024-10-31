@@ -13,8 +13,37 @@ import {
   Select,
   MenuItem,
   FormControl,
+  styled,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  tableCellClasses,
 } from "@mui/material";
 import { selectUserRequestData } from "../features/selectors/userSelector";
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
 
 const Users = () => {
   const { hasEditAccess, hasViewAccess } = useProtectAccess('Users');
@@ -76,11 +105,29 @@ const Users = () => {
     <div>
       <h1>Employees</h1>
       { hasEditAccess && <Button variant="contained" color="primary" onClick={handleOpen}>Add Employee</Button>}
-      {users.map(user => (
-        <ul key={user.id}>
-          <li>{user.email} - {user.role}</li>
-        </ul>
-      ))}
+
+      <TableContainer component={Paper} sx={{
+        minWidth: 375,
+        maxWidth: 750,
+        margin: '0 auto',
+      }}>
+        <Table aria-label="customized table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell align="center">Name</StyledTableCell>
+              <StyledTableCell align="center">Role</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {users.map((user) => (
+              <StyledTableRow key={user.id}>
+                <StyledTableCell align="center">{user.email}</StyledTableCell>
+                <StyledTableCell align="center">{user.role}</StyledTableCell>
+              </StyledTableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
       <Modal
         open={isOpen}
         onClose={handleClose}
