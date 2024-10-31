@@ -1,6 +1,5 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { selectUserData } from '../features/user/userSelector';
+import { useDispatch } from 'react-redux';
+import useAuthenticate from '../hooks/useAuthenticate';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -8,14 +7,9 @@ import { signUpUser } from '../features/user/userSlice';
 import sharedStyles from '../styles/shared';
 
 export default function Signup() {
+  useAuthenticate();
+
   const dispatch = useDispatch();
-  const user = useSelector(selectUserData);
-  const navigate = useNavigate();
-
-  if (user) {
-    navigate('/');
-  }
-
   const handleSubmit = e => {
     e.preventDefault();
     const { email, password, confirmPassword } = e.target;
