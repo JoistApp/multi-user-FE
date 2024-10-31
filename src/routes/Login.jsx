@@ -1,21 +1,31 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { selectUserData } from '../features/user/userSelector';
+import { useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import { login } from '../modules/apiRequests';
+import { loginUser } from '../features/user/userSlice';
 import sharedStyles from '../styles/shared';
 
 export default function LogIn() {
-  const handleSubmit = async e => {
+  const dispatch = useDispatch();
+  const user = useSelector(selectUserData);
+  const navigate = useNavigate();
+
+  if (user) {
+    navigate('/');
+  }
+
+  const handleSubmit = e => {
     e.preventDefault();
     const { email, password } = e.target;
-    const response = await login({
+    const userData = {
       user: {
         email: email.value,
         password: password.value,
       }
-    });
-
-    console.log(response);
+    };  
+    dispatch(loginUser(userData));
   }
 
   return (

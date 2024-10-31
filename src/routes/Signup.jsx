@@ -1,22 +1,32 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { selectUserData } from '../features/user/userSelector';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import { signUp } from '../modules/apiRequests';
+import { signUpUser } from '../features/user/userSlice';
 import sharedStyles from '../styles/shared';
 
 export default function Signup() {
-  const handleSubmit = async e => {
+  const dispatch = useDispatch();
+  const user = useSelector(selectUserData);
+  const navigate = useNavigate();
+
+  if (user) {
+    navigate('/');
+  }
+
+  const handleSubmit = e => {
     e.preventDefault();
     const { email, password, confirmPassword } = e.target;
-    const response = await signUp({
+    const userData = {
       user: {
         email: email.value,
         password: password.value,
         password_confirmation: confirmPassword.value,
       }
-    });
-
-    console.log(response);
+    };
+    dispatch(signUpUser(userData));
   }
 
   return (
