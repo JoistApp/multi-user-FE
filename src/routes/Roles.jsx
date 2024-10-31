@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import useModal from "../hooks/useModal";
 import { addRole } from "../features/slices/rolesSlice";
 import { selectRolesList } from "../features/selectors/rolesSelector";
+import { selectViewLink, selectEditLink } from "../features/selectors/userSelector";
 import { fetchRoles } from "../features/slices/userSlice";
 import sharedStyles from '../styles/shared';
 import {
@@ -16,6 +18,22 @@ import {
 } from "@mui/material";
 
 const Roles = () => {
+  const {
+    hasEditLink,
+    hasViewLink,
+  } = useSelector(state => {
+    const PAGE_NAME = 'Roles';
+    return {
+      hasViewLink: selectViewLink(state, PAGE_NAME),
+      hasEditLink: selectEditLink(state, PAGE_NAME),
+    }
+  });
+  const navigate = useNavigate();
+
+  if (!hasViewLink) {
+    navigate('/');
+  }
+  
   const initialStateCheckbox = {
     roles_visible: false,
     roles_enabled: false,
@@ -103,7 +121,7 @@ const Roles = () => {
   return (
     <Box>
       <h1>Roles</h1>
-      <Button variant="contained" color="primary" onClick={handleOpen}>Add Role</Button>
+      {hasEditLink && <Button variant="contained" color="primary" onClick={handleOpen}>Add Role</Button>}
       <Modal
         open={isOpen}
         onClose={handleClose}
