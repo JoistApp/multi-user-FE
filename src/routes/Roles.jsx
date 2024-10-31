@@ -174,7 +174,7 @@ const Roles = () => {
       <TableContainer component={Paper} sx={{
         minWidth: 375,
         maxWidth: 1000,
-        margin: '0 auto',
+        marginTop: 2,
       }}>
         <Table aria-label="customized table">
           <TableHead>

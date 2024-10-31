@@ -88,7 +88,7 @@ const Users = () => {
       <TableContainer component={Paper} sx={{
         minWidth: 375,
         maxWidth: 750,
-        margin: '0 auto',
+        marginTop: 2,
       }}>
         <Table aria-label="customized table">
           <TableHead>
