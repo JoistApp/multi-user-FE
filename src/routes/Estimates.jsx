@@ -44,7 +44,9 @@ export default function Estimates() {
 
     try {
       const response = await postData(userRequestData, payload, 'estimates');
-      setEstimates([...estimates, response.data.estimate]);
+      console.log(response);
+      setEstimates([...estimates, response.estimate]);
+      handleClose();
     } catch (err) {
       console.log(err);
     }

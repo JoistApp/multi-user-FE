@@ -44,7 +44,8 @@ export default function Invoices() {
 
     try {
       const response = await postData(userRequestData, payload, 'invoices');
-      setInvoices([...invoices, response.data.invoice]);
+      setInvoices([...invoices, response.invoice]);
+      handleClose();
     } catch (err) {
       console.log(err);
     }
