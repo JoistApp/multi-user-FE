@@ -51,7 +51,6 @@ export async function registerUser(userData) {
 }
 
 export async function signUp(userData) {
-  debugger;
   const user = await registerUser(userData);
   const { tabs } = await fetchData(user, 'tabs');
   return {
