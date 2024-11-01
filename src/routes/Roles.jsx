@@ -192,7 +192,7 @@ const Roles = () => {
           </TableHead>
           <TableBody>
             {roles?.map((role) => (
-              <StyledTableRow key={user.id}>
+              <StyledTableRow key={role.id}>
                 <StyledTableCell align="center">{role.name}</StyledTableCell>
                 <StyledTableCell align="center"><Checkbox disabled checked={role.roles_visible} /></StyledTableCell>
                 <StyledTableCell align="center"><Checkbox disabled checked={role.roles_enabled} /></StyledTableCell>
