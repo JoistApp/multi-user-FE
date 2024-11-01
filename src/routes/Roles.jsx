@@ -66,7 +66,6 @@ const Roles = () => {
       }
     }
     dispatch(addRole(data));
-    debugger;
     handleClose();
     setRoleName('');
     setRoleDescription('');
