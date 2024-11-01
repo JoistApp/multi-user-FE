@@ -74,7 +74,7 @@ const Users = () => {
     try {
       await registerUser(payload);
       await getUsers();
-      
+      handleClose();
     } catch (err) {
       console.log(err);
     }

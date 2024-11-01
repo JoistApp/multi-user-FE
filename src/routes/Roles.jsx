@@ -66,8 +66,8 @@ const Roles = () => {
       }
     }
     dispatch(addRole(data));
-
-    setIsOpen(false);
+    debugger;
+    handleClose();
     setRoleName('');
     setRoleDescription('');
     setCheckboxes(initialStateCheckbox);
