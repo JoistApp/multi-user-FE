@@ -7,6 +7,18 @@ const initialState = {
   errors: [],
 }
 
+export const loginUser = createAsyncThunk(
+  'user/login',
+  async (userData, { rejectWithValue }) => {
+    try {
+      const response = await login(userData);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+)
+
 export const signUpUser = createAsyncThunk(
   'user/signUp',
   async (userData, { rejectWithValue }) => {
@@ -19,17 +31,6 @@ export const signUpUser = createAsyncThunk(
   }
 )
 
-export const loginUser = createAsyncThunk(
-  'user/login',
-  async (userData, { rejectWithValue }) => {
-    try {
-      const response = await login(userData);
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-)
 
 export const fetchRoles = createAsyncThunk(
   'user/roles/get',
